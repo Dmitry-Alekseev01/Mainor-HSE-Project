@@ -20,7 +20,7 @@ create table doctor_visit_info (
     name_doctor varchar(255) not null,
     date_visit timestamp with time zone default now() not null,
     medicines text not null,
-    diagnosis_ID int foreign key references diagnosis(diagnosis_ID) not null
+    diagnosis_ID int references diagnosis(diagnosis_ID) not null
 );
 
 create table ekp_info (
