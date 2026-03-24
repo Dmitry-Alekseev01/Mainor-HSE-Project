@@ -10,7 +10,7 @@ create table diagnosis (
 
 create table analysis (
     analysis_ID serial primary key,
-    analysis_type varchar(50) not null CHECK (analysis_type in ("кровь", "моча", "кал")),
+    analysis_type varchar(50) not null CHECK (analysis_type in ('кровь', 'моча', 'кал')),
     analysis_date timestamp with time zone default now() not null,
     analysis_result_file_url text not null unique
 );
@@ -30,7 +30,7 @@ create table ekp_info (
     passport_series int not null,
     passport_number int not null,
     birth_date timestamp with time zone default now() not null,
-    gender varchar(1) not null check(gender in ("М", "Ж")),
+    gender varchar(1) not null check(gender in ('М', 'Ж')),
     snils int not null unique,
     ensurance varchar(50) not null unique,
     patient_address varchar(255) not null,
