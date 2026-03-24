@@ -51,6 +51,6 @@ create table hospitalization_info (
     hospitalization_ID serial primary key,
     ekp_ID int references ekp_info(ekp_ID),
     date_hospitalization timestamp with time zone default now() not null,
-    hospital_ID int not null references(hospital(hospital_ID)),
+    hospital_ID int not null references hospital(hospital_ID),
     diagnosis_ID int references diagnosis(diagnosis_ID) not null
 );
