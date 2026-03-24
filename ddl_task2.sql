@@ -55,8 +55,3 @@ create table hospitalization_info (
     hospital_ID int not null references hospital(hospital_ID),
     diagnosis_ID int references diagnosis(diagnosis_ID) not null
 );
-
-create table visit_ekp (
-    ekp_ID int references ekp_info(ekp_ID),
-    visit_ID int references doctor_visit_info(visit_ID)
-);
