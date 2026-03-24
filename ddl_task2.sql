@@ -15,15 +15,6 @@ create table analysis (
     analysis_result_file_url text not null unique
 );
 
-create table doctor_visit_info (
-    visit_ID serial primary key,
-    ekp_ID int references ekp_info(ekp_ID),
-    name_doctor varchar(255) not null,
-    date_visit timestamp with time zone default now() not null,
-    medicines text not null,
-    diagnosis_ID int references diagnosis(diagnosis_ID) not null
-);
-
 create table ekp_info (
     ekp_ID serial primary key,
     name_patient varchar(255) not null,
@@ -38,6 +29,15 @@ create table ekp_info (
     phone_number varchar(50) not null unique,
     email varchar(255) not null unique,
     unique(passport_series, passport_number)
+);
+
+create table doctor_visit_info (
+    visit_ID serial primary key,
+    ekp_ID int references ekp_info(ekp_ID),
+    name_doctor varchar(255) not null,
+    date_visit timestamp with time zone default now() not null,
+    medicines text not null,
+    diagnosis_ID int references diagnosis(diagnosis_ID) not null
 );
 
 create table sick_leave_info (
