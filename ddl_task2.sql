@@ -31,7 +31,7 @@ create table ekp_info (
     passport_number int not null,
     birth_date timestamp with time zone default now() not null,
     gender varchar(1) not null check(gender in ('М', 'Ж')),
-    snils int not null unique,
+    snils varchar(50) not null unique,
     ensurance varchar(50) not null unique,
     patient_address varchar(255) not null,
     phone_number varchar(50) not null unique,
