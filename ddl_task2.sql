@@ -17,6 +17,7 @@ create table analysis (
 
 create table doctor_visit_info (
     visit_ID serial primary key,
+    ekp_ID int references ekp_info(ekp_ID),
     name_doctor varchar(255) not null,
     date_visit timestamp with time zone default now() not null,
     medicines text not null,
@@ -53,4 +54,9 @@ create table hospitalization_info (
     date_hospitalization timestamp with time zone default now() not null,
     hospital_ID int not null references hospital(hospital_ID),
     diagnosis_ID int references diagnosis(diagnosis_ID) not null
+);
+
+create table visit_ekp (
+    ekp_ID int references ekp_info(ekp_ID),
+    visit_ID int references doctor_visit_info(visit_ID)
 );

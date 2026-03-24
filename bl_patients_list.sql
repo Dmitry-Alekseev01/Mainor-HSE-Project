@@ -1,0 +1,3 @@
+SELECT COUNT(*)
+FROM sick_leave_info
+WHERE date_sick_leave BETWEEN '2026-03-16 09:10:00+03' AND '2026-03-19 13:10:00+03';
