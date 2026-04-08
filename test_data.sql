@@ -36,14 +36,15 @@ INSERT INTO ekp_info (
 INSERT INTO analysis (
     analysis_type,
     analysis_date,
-    analysis_result_file_url
+    analysis_result_file_url,
+	ekp_ID
 ) VALUES
-('кровь', '2026-03-10 08:00:00+03', 'https://example.com/results/analysis_001.pdf'),
-('моча', '2026-03-11 08:15:00+03', 'https://example.com/results/analysis_002.pdf'),
-('кал', '2026-03-12 08:30:00+03', 'https://example.com/results/analysis_003.pdf'),
-('кровь', '2026-03-13 08:45:00+03', 'https://example.com/results/analysis_004.pdf'),
-('моча', '2026-03-14 09:00:00+03', 'https://example.com/results/analysis_005.pdf'),
-('кал', '2026-03-15 09:15:00+03', 'https://example.com/results/analysis_006.pdf');
+('кровь', '2026-03-10 08:00:00+03', 'https://example.com/results/analysis_001.pdf', 1),
+('моча', '2026-03-11 08:15:00+03', 'https://example.com/results/analysis_002.pdf', 2),
+('кал', '2026-03-12 08:30:00+03', 'https://example.com/results/analysis_003.pdf', 3),
+('кровь', '2026-03-13 08:45:00+03', 'https://example.com/results/analysis_004.pdf', 2),
+('моча', '2026-03-14 09:00:00+03', 'https://example.com/results/analysis_005.pdf', 3),
+('кал', '2026-03-15 09:15:00+03', 'https://example.com/results/analysis_006.pdf', 4);
 
 INSERT INTO doctor_visit_info (
     ekp_ID,

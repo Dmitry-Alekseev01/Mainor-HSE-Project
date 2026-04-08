@@ -2,17 +2,14 @@
 -- PostgreSQL database dump
 --
 
-\restrict QGHrCUNYbgPdWBjupbbivYL0Ydvf3Dif1vm2ehR5u2vvz9VyaR7KVGIrkKToawG
+-- Dumped from database version 16.4
+-- Dumped by pg_dump version 16.4
 
--- Dumped from database version 18.2
--- Dumped by pg_dump version 18.2
-
--- Started on 2026-03-24 19:23:58
+-- Started on 2026-04-08 19:27:12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
-SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -21,31 +18,12 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- TOC entry 4 (class 2615 OID 2200)
--- Name: public; Type: SCHEMA; Schema: -; Owner: pg_database_owner
---
-
-CREATE SCHEMA public;
-
-
-ALTER SCHEMA public OWNER TO pg_database_owner;
-
---
--- TOC entry 5100 (class 0 OID 0)
--- Dependencies: 4
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: pg_database_owner
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
-
-
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
 --
--- TOC entry 224 (class 1259 OID 16958)
+-- TOC entry 222 (class 1259 OID 17657)
 -- Name: analysis; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -54,6 +32,7 @@ CREATE TABLE public.analysis (
     analysis_type character varying(50) NOT NULL,
     analysis_date timestamp with time zone DEFAULT now() NOT NULL,
     analysis_result_file_url text NOT NULL,
+    ekp_id integer,
     CONSTRAINT analysis_analysis_type_check CHECK (((analysis_type)::text = ANY ((ARRAY['кровь'::character varying, 'моча'::character varying, 'кал'::character varying])::text[])))
 );
 
@@ -61,7 +40,7 @@ CREATE TABLE public.analysis (
 ALTER TABLE public.analysis OWNER TO postgres;
 
 --
--- TOC entry 223 (class 1259 OID 16957)
+-- TOC entry 221 (class 1259 OID 17656)
 -- Name: analysis_analysis_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -77,8 +56,8 @@ CREATE SEQUENCE public.analysis_analysis_id_seq
 ALTER SEQUENCE public.analysis_analysis_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5101 (class 0 OID 0)
--- Dependencies: 223
+-- TOC entry 4929 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: analysis_analysis_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -86,7 +65,7 @@ ALTER SEQUENCE public.analysis_analysis_id_seq OWNED BY public.analysis.analysis
 
 
 --
--- TOC entry 222 (class 1259 OID 16947)
+-- TOC entry 218 (class 1259 OID 17613)
 -- Name: diagnosis; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -99,7 +78,7 @@ CREATE TABLE public.diagnosis (
 ALTER TABLE public.diagnosis OWNER TO postgres;
 
 --
--- TOC entry 221 (class 1259 OID 16946)
+-- TOC entry 217 (class 1259 OID 17612)
 -- Name: diagnosis_diagnosis_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -115,8 +94,8 @@ CREATE SEQUENCE public.diagnosis_diagnosis_id_seq
 ALTER SEQUENCE public.diagnosis_diagnosis_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5102 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 4930 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: diagnosis_diagnosis_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -124,7 +103,7 @@ ALTER SEQUENCE public.diagnosis_diagnosis_id_seq OWNED BY public.diagnosis.diagn
 
 
 --
--- TOC entry 228 (class 1259 OID 17009)
+-- TOC entry 224 (class 1259 OID 17675)
 -- Name: doctor_visit_info; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -141,7 +120,7 @@ CREATE TABLE public.doctor_visit_info (
 ALTER TABLE public.doctor_visit_info OWNER TO postgres;
 
 --
--- TOC entry 227 (class 1259 OID 17008)
+-- TOC entry 223 (class 1259 OID 17674)
 -- Name: doctor_visit_info_visit_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -157,8 +136,8 @@ CREATE SEQUENCE public.doctor_visit_info_visit_id_seq
 ALTER SEQUENCE public.doctor_visit_info_visit_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5103 (class 0 OID 0)
--- Dependencies: 227
+-- TOC entry 4931 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: doctor_visit_info_visit_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -166,7 +145,7 @@ ALTER SEQUENCE public.doctor_visit_info_visit_id_seq OWNED BY public.doctor_visi
 
 
 --
--- TOC entry 226 (class 1259 OID 16975)
+-- TOC entry 220 (class 1259 OID 17635)
 -- Name: ekp_info; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -190,7 +169,7 @@ CREATE TABLE public.ekp_info (
 ALTER TABLE public.ekp_info OWNER TO postgres;
 
 --
--- TOC entry 225 (class 1259 OID 16974)
+-- TOC entry 219 (class 1259 OID 17634)
 -- Name: ekp_info_ekp_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -206,8 +185,8 @@ CREATE SEQUENCE public.ekp_info_ekp_id_seq
 ALTER SEQUENCE public.ekp_info_ekp_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5104 (class 0 OID 0)
--- Dependencies: 225
+-- TOC entry 4932 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: ekp_info_ekp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -215,7 +194,7 @@ ALTER SEQUENCE public.ekp_info_ekp_id_seq OWNED BY public.ekp_info.ekp_id;
 
 
 --
--- TOC entry 220 (class 1259 OID 16938)
+-- TOC entry 216 (class 1259 OID 17606)
 -- Name: hospital; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -228,7 +207,7 @@ CREATE TABLE public.hospital (
 ALTER TABLE public.hospital OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 16937)
+-- TOC entry 215 (class 1259 OID 17605)
 -- Name: hospital_hospital_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -244,8 +223,8 @@ CREATE SEQUENCE public.hospital_hospital_id_seq
 ALTER SEQUENCE public.hospital_hospital_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5105 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 4933 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: hospital_hospital_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -253,7 +232,7 @@ ALTER SEQUENCE public.hospital_hospital_id_seq OWNED BY public.hospital.hospital
 
 
 --
--- TOC entry 232 (class 1259 OID 17056)
+-- TOC entry 228 (class 1259 OID 17713)
 -- Name: hospitalization_info; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -269,7 +248,7 @@ CREATE TABLE public.hospitalization_info (
 ALTER TABLE public.hospitalization_info OWNER TO postgres;
 
 --
--- TOC entry 231 (class 1259 OID 17055)
+-- TOC entry 227 (class 1259 OID 17712)
 -- Name: hospitalization_info_hospitalization_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -285,8 +264,8 @@ CREATE SEQUENCE public.hospitalization_info_hospitalization_id_seq
 ALTER SEQUENCE public.hospitalization_info_hospitalization_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5106 (class 0 OID 0)
--- Dependencies: 231
+-- TOC entry 4934 (class 0 OID 0)
+-- Dependencies: 227
 -- Name: hospitalization_info_hospitalization_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -294,7 +273,7 @@ ALTER SEQUENCE public.hospitalization_info_hospitalization_id_seq OWNED BY publi
 
 
 --
--- TOC entry 230 (class 1259 OID 17034)
+-- TOC entry 226 (class 1259 OID 17695)
 -- Name: sick_leave_info; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -310,7 +289,7 @@ CREATE TABLE public.sick_leave_info (
 ALTER TABLE public.sick_leave_info OWNER TO postgres;
 
 --
--- TOC entry 229 (class 1259 OID 17033)
+-- TOC entry 225 (class 1259 OID 17694)
 -- Name: sick_leave_info_sick_leave_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -326,8 +305,8 @@ CREATE SEQUENCE public.sick_leave_info_sick_leave_id_seq
 ALTER SEQUENCE public.sick_leave_info_sick_leave_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5107 (class 0 OID 0)
--- Dependencies: 229
+-- TOC entry 4935 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: sick_leave_info_sick_leave_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -335,7 +314,7 @@ ALTER SEQUENCE public.sick_leave_info_sick_leave_id_seq OWNED BY public.sick_lea
 
 
 --
--- TOC entry 4888 (class 2604 OID 16961)
+-- TOC entry 4723 (class 2604 OID 17660)
 -- Name: analysis analysis_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -343,7 +322,7 @@ ALTER TABLE ONLY public.analysis ALTER COLUMN analysis_id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 4887 (class 2604 OID 16950)
+-- TOC entry 4719 (class 2604 OID 17616)
 -- Name: diagnosis diagnosis_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -351,7 +330,7 @@ ALTER TABLE ONLY public.diagnosis ALTER COLUMN diagnosis_id SET DEFAULT nextval(
 
 
 --
--- TOC entry 4893 (class 2604 OID 17012)
+-- TOC entry 4725 (class 2604 OID 17678)
 -- Name: doctor_visit_info visit_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -359,7 +338,7 @@ ALTER TABLE ONLY public.doctor_visit_info ALTER COLUMN visit_id SET DEFAULT next
 
 
 --
--- TOC entry 4890 (class 2604 OID 16978)
+-- TOC entry 4720 (class 2604 OID 17638)
 -- Name: ekp_info ekp_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -367,7 +346,7 @@ ALTER TABLE ONLY public.ekp_info ALTER COLUMN ekp_id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 4886 (class 2604 OID 16941)
+-- TOC entry 4718 (class 2604 OID 17609)
 -- Name: hospital hospital_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -375,7 +354,7 @@ ALTER TABLE ONLY public.hospital ALTER COLUMN hospital_id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 4897 (class 2604 OID 17059)
+-- TOC entry 4729 (class 2604 OID 17716)
 -- Name: hospitalization_info hospitalization_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -383,7 +362,7 @@ ALTER TABLE ONLY public.hospitalization_info ALTER COLUMN hospitalization_id SET
 
 
 --
--- TOC entry 4895 (class 2604 OID 17037)
+-- TOC entry 4727 (class 2604 OID 17698)
 -- Name: sick_leave_info sick_leave_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -391,24 +370,24 @@ ALTER TABLE ONLY public.sick_leave_info ALTER COLUMN sick_leave_id SET DEFAULT n
 
 
 --
--- TOC entry 5086 (class 0 OID 16958)
--- Dependencies: 224
+-- TOC entry 4917 (class 0 OID 17657)
+-- Dependencies: 222
 -- Data for Name: analysis; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.analysis (analysis_id, analysis_type, analysis_date, analysis_result_file_url) FROM stdin;
-1	кровь	2026-03-10 08:00:00+03	https://example.com/results/analysis_001.pdf
-2	моча	2026-03-11 08:15:00+03	https://example.com/results/analysis_002.pdf
-3	кал	2026-03-12 08:30:00+03	https://example.com/results/analysis_003.pdf
-4	кровь	2026-03-13 08:45:00+03	https://example.com/results/analysis_004.pdf
-5	моча	2026-03-14 09:00:00+03	https://example.com/results/analysis_005.pdf
-6	кал	2026-03-15 09:15:00+03	https://example.com/results/analysis_006.pdf
+COPY public.analysis (analysis_id, analysis_type, analysis_date, analysis_result_file_url, ekp_id) FROM stdin;
+1	кровь	2026-03-10 05:00:00+00	https://example.com/results/analysis_001.pdf	1
+2	моча	2026-03-11 05:15:00+00	https://example.com/results/analysis_002.pdf	2
+3	кал	2026-03-12 05:30:00+00	https://example.com/results/analysis_003.pdf	3
+4	кровь	2026-03-13 05:45:00+00	https://example.com/results/analysis_004.pdf	2
+5	моча	2026-03-14 06:00:00+00	https://example.com/results/analysis_005.pdf	3
+6	кал	2026-03-15 06:15:00+00	https://example.com/results/analysis_006.pdf	4
 \.
 
 
 --
--- TOC entry 5084 (class 0 OID 16947)
--- Dependencies: 222
+-- TOC entry 4913 (class 0 OID 17613)
+-- Dependencies: 218
 -- Data for Name: diagnosis; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -423,42 +402,42 @@ COPY public.diagnosis (diagnosis_id, diagnosis_description) FROM stdin;
 
 
 --
--- TOC entry 5090 (class 0 OID 17009)
--- Dependencies: 228
+-- TOC entry 4919 (class 0 OID 17675)
+-- Dependencies: 224
 -- Data for Name: doctor_visit_info; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.doctor_visit_info (visit_id, ekp_id, name_doctor, date_visit, medicines, diagnosis_id) FROM stdin;
-1	1	Иванова Ольга Николаевна	2026-03-10 12:00:00+03	Ибупрофен 200 мг 2 раза в день, обильное питье	1
-2	2	Соколова Наталья Андреевна	2026-03-11 13:30:00+03	Эналаприл 10 мг утром, контроль давления	2
-3	3	Морозов Алексей Павлович	2026-03-12 15:10:00+03	Омепразол 20 мг утром, диета №1	3
-4	4	Федорова Татьяна Юрьевна	2026-03-13 10:45:00+03	Суматриптан при приступе, отдых в темной комнате	4
-5	5	Крылов Максим Ильич	2026-03-14 09:20:00+03	Мелоксикам 7.5 мг после еды, гимнастика для шеи	5
-6	6	Белова Ирина Сергеевна	2026-03-15 17:00:00+03	Цетиризин 10 мг вечером, исключить аллерген	6
-7	1	Иванова Ольга Николаевна	2026-03-16 11:00:00+03	Повторный осмотр, продолжить лечение	1
-8	2	Соколова Наталья Андреевна	2026-03-17 12:20:00+03	Повторный контроль давления	2
+1	1	Иванова Ольга Николаевна	2026-03-10 09:00:00+00	Ибупрофен 200 мг 2 раза в день, обильное питье	1
+2	2	Соколова Наталья Андреевна	2026-03-11 10:30:00+00	Эналаприл 10 мг утром, контроль давления	2
+3	3	Морозов Алексей Павлович	2026-03-12 12:10:00+00	Омепразол 20 мг утром, диета №1	3
+4	4	Федорова Татьяна Юрьевна	2026-03-13 07:45:00+00	Суматриптан при приступе, отдых в темной комнате	4
+5	5	Крылов Максим Ильич	2026-03-14 06:20:00+00	Мелоксикам 7.5 мг после еды, гимнастика для шеи	5
+6	6	Белова Ирина Сергеевна	2026-03-15 14:00:00+00	Цетиризин 10 мг вечером, исключить аллерген	6
+7	1	Иванова Ольга Николаевна	2026-03-16 08:00:00+00	Повторный осмотр, продолжить лечение	1
+8	2	Соколова Наталья Андреевна	2026-03-17 09:20:00+00	Повторный контроль давления	2
 \.
 
 
 --
--- TOC entry 5088 (class 0 OID 16975)
--- Dependencies: 226
+-- TOC entry 4915 (class 0 OID 17635)
+-- Dependencies: 220
 -- Data for Name: ekp_info; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.ekp_info (ekp_id, name_patient, created_at, passport_series, passport_number, birth_date, gender, snils, ensurance, patient_address, phone_number, email) FROM stdin;
-1	Иванов Сергей Петрович	2026-03-01 10:15:00+03	4510	123456	1988-04-12 01:00:00+04	М	12345678901	7712345678901	г. Москва, ул. Лесная, д. 5	+79990000001	ivanov.sp@mail.ru
-2	Петрова Анна Игоревна	2026-03-02 11:20:00+03	4511	223456	1992-09-25 01:00:00+04	Ж	12345678902	7712345678902	г. Москва, ул. Тверская, д. 12	+79990000002	petrova.ai@mail.ru
-3	Смирнов Дмитрий Олегович	2026-03-03 09:05:00+03	4512	323456	1985-11-03 00:00:00+03	М	12345678903	7712345678903	г. Казань, ул. Чистопольская, д. 18	+79990000003	smirnov.do@mail.ru
-4	Кузнецова Елена Викторовна	2026-03-04 14:40:00+03	4513	423456	1995-02-17 00:00:00+03	Ж	12345678904	7712345678904	г. Санкт-Петербург, ул. Рубинштейна, д. 8	+79990000004	kuznetsova.ev@mail.ru
-5	Орлов Андрей Сергеевич	2026-03-05 16:30:00+03	4514	523456	1979-07-29 00:00:00+03	М	12345678905	7712345678905	г. Екатеринбург, ул. Мира, д. 21	+79990000005	orlov.as@mail.ru
-6	Волкова Мария Андреевна	2026-03-06 08:55:00+03	4515	623456	2000-12-10 00:00:00+03	Ж	12345678906	7712345678906	г. Москва, проспект Вернадского, д. 33	+79990000006	volkova.ma@mail.ru
+1	Иванов Сергей Петрович	2026-03-01 07:15:00+00	4510	123456	1988-04-11 21:00:00+00	М	12345678901	7712345678901	г. Москва, ул. Лесная, д. 5	+79990000001	ivanov.sp@mail.ru
+2	Петрова Анна Игоревна	2026-03-02 08:20:00+00	4511	223456	1992-09-24 21:00:00+00	Ж	12345678902	7712345678902	г. Москва, ул. Тверская, д. 12	+79990000002	petrova.ai@mail.ru
+3	Смирнов Дмитрий Олегович	2026-03-03 06:05:00+00	4512	323456	1985-11-02 21:00:00+00	М	12345678903	7712345678903	г. Казань, ул. Чистопольская, д. 18	+79990000003	smirnov.do@mail.ru
+4	Кузнецова Елена Викторовна	2026-03-04 11:40:00+00	4513	423456	1995-02-16 21:00:00+00	Ж	12345678904	7712345678904	г. Санкт-Петербург, ул. Рубинштейна, д. 8	+79990000004	kuznetsova.ev@mail.ru
+5	Орлов Андрей Сергеевич	2026-03-05 13:30:00+00	4514	523456	1979-07-28 21:00:00+00	М	12345678905	7712345678905	г. Екатеринбург, ул. Мира, д. 21	+79990000005	orlov.as@mail.ru
+6	Волкова Мария Андреевна	2026-03-06 05:55:00+00	4515	623456	2000-12-09 21:00:00+00	Ж	12345678906	7712345678906	г. Москва, проспект Вернадского, д. 33	+79990000006	volkova.ma@mail.ru
 \.
 
 
 --
--- TOC entry 5082 (class 0 OID 16938)
--- Dependencies: 220
+-- TOC entry 4911 (class 0 OID 17606)
+-- Dependencies: 216
 -- Data for Name: hospital; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -472,40 +451,40 @@ COPY public.hospital (hospital_id, hospital_address) FROM stdin;
 
 
 --
--- TOC entry 5094 (class 0 OID 17056)
--- Dependencies: 232
+-- TOC entry 4923 (class 0 OID 17713)
+-- Dependencies: 228
 -- Data for Name: hospitalization_info; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.hospitalization_info (hospitalization_id, ekp_id, date_hospitalization, hospital_id, diagnosis_id) FROM stdin;
-1	1	2026-03-16 09:00:00+03	1	1
-2	2	2026-03-17 10:30:00+03	2	2
-3	3	2026-03-18 11:45:00+03	3	3
-4	4	2026-03-19 13:00:00+03	4	4
-5	5	2026-03-20 14:15:00+03	1	5
-6	6	2026-03-21 15:30:00+03	2	6
+1	1	2026-03-16 06:00:00+00	1	1
+2	2	2026-03-17 07:30:00+00	2	2
+3	3	2026-03-18 08:45:00+00	3	3
+4	4	2026-03-19 10:00:00+00	4	4
+5	5	2026-03-20 11:15:00+00	1	5
+6	6	2026-03-21 12:30:00+00	2	6
 \.
 
 
 --
--- TOC entry 5092 (class 0 OID 17034)
--- Dependencies: 230
+-- TOC entry 4921 (class 0 OID 17695)
+-- Dependencies: 226
 -- Data for Name: sick_leave_info; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.sick_leave_info (sick_leave_id, ekp_id, date_sick_leave, diagnosis_id, sick_leave_period) FROM stdin;
-1	1	2026-03-16 09:10:00+03	1	10 days
-2	2	2026-03-17 10:40:00+03	2	14 days
-3	3	2026-03-18 11:50:00+03	3	7 days
-4	4	2026-03-19 13:10:00+03	4	5 days
-5	5	2026-03-20 14:20:00+03	5	12 days
-6	6	2026-03-21 15:35:00+03	6	9 days
+1	1	2026-03-16 06:10:00+00	1	10 days
+2	2	2026-03-17 07:40:00+00	2	14 days
+3	3	2026-03-18 08:50:00+00	3	7 days
+4	4	2026-03-19 10:10:00+00	4	5 days
+5	5	2026-03-20 11:20:00+00	5	12 days
+6	6	2026-03-21 12:35:00+00	6	9 days
 \.
 
 
 --
--- TOC entry 5108 (class 0 OID 0)
--- Dependencies: 223
+-- TOC entry 4936 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: analysis_analysis_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -513,17 +492,17 @@ SELECT pg_catalog.setval('public.analysis_analysis_id_seq', 6, true);
 
 
 --
--- TOC entry 5109 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 4937 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: diagnosis_diagnosis_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.diagnosis_diagnosis_id_seq', 6, true);
+SELECT pg_catalog.setval('public.diagnosis_diagnosis_id_seq', 12, true);
 
 
 --
--- TOC entry 5110 (class 0 OID 0)
--- Dependencies: 227
+-- TOC entry 4938 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: doctor_visit_info_visit_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -531,26 +510,26 @@ SELECT pg_catalog.setval('public.doctor_visit_info_visit_id_seq', 8, true);
 
 
 --
--- TOC entry 5111 (class 0 OID 0)
--- Dependencies: 225
+-- TOC entry 4939 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: ekp_info_ekp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.ekp_info_ekp_id_seq', 6, true);
+SELECT pg_catalog.setval('public.ekp_info_ekp_id_seq', 7, true);
 
 
 --
--- TOC entry 5112 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 4940 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: hospital_hospital_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.hospital_hospital_id_seq', 5, true);
+SELECT pg_catalog.setval('public.hospital_hospital_id_seq', 10, true);
 
 
 --
--- TOC entry 5113 (class 0 OID 0)
--- Dependencies: 231
+-- TOC entry 4941 (class 0 OID 0)
+-- Dependencies: 227
 -- Name: hospitalization_info_hospitalization_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -558,8 +537,8 @@ SELECT pg_catalog.setval('public.hospitalization_info_hospitalization_id_seq', 6
 
 
 --
--- TOC entry 5114 (class 0 OID 0)
--- Dependencies: 229
+-- TOC entry 4942 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: sick_leave_info_sick_leave_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -567,7 +546,7 @@ SELECT pg_catalog.setval('public.sick_leave_info_sick_leave_id_seq', 6, true);
 
 
 --
--- TOC entry 4906 (class 2606 OID 16973)
+-- TOC entry 4750 (class 2606 OID 17668)
 -- Name: analysis analysis_analysis_result_file_url_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -576,7 +555,7 @@ ALTER TABLE ONLY public.analysis
 
 
 --
--- TOC entry 4908 (class 2606 OID 16971)
+-- TOC entry 4752 (class 2606 OID 17666)
 -- Name: analysis analysis_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -585,7 +564,7 @@ ALTER TABLE ONLY public.analysis
 
 
 --
--- TOC entry 4904 (class 2606 OID 16956)
+-- TOC entry 4736 (class 2606 OID 17620)
 -- Name: diagnosis diagnosis_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -594,7 +573,7 @@ ALTER TABLE ONLY public.diagnosis
 
 
 --
--- TOC entry 4922 (class 2606 OID 17022)
+-- TOC entry 4754 (class 2606 OID 17683)
 -- Name: doctor_visit_info doctor_visit_info_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -603,7 +582,7 @@ ALTER TABLE ONLY public.doctor_visit_info
 
 
 --
--- TOC entry 4910 (class 2606 OID 17005)
+-- TOC entry 4738 (class 2606 OID 17653)
 -- Name: ekp_info ekp_info_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -612,7 +591,7 @@ ALTER TABLE ONLY public.ekp_info
 
 
 --
--- TOC entry 4912 (class 2606 OID 17001)
+-- TOC entry 4740 (class 2606 OID 17649)
 -- Name: ekp_info ekp_info_ensurance_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -621,7 +600,7 @@ ALTER TABLE ONLY public.ekp_info
 
 
 --
--- TOC entry 4914 (class 2606 OID 17007)
+-- TOC entry 4742 (class 2606 OID 17655)
 -- Name: ekp_info ekp_info_passport_series_passport_number_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -630,7 +609,7 @@ ALTER TABLE ONLY public.ekp_info
 
 
 --
--- TOC entry 4916 (class 2606 OID 17003)
+-- TOC entry 4744 (class 2606 OID 17651)
 -- Name: ekp_info ekp_info_phone_number_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -639,7 +618,7 @@ ALTER TABLE ONLY public.ekp_info
 
 
 --
--- TOC entry 4918 (class 2606 OID 16997)
+-- TOC entry 4746 (class 2606 OID 17645)
 -- Name: ekp_info ekp_info_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -648,7 +627,7 @@ ALTER TABLE ONLY public.ekp_info
 
 
 --
--- TOC entry 4920 (class 2606 OID 16999)
+-- TOC entry 4748 (class 2606 OID 17647)
 -- Name: ekp_info ekp_info_snils_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -657,7 +636,7 @@ ALTER TABLE ONLY public.ekp_info
 
 
 --
--- TOC entry 4902 (class 2606 OID 16945)
+-- TOC entry 4734 (class 2606 OID 17611)
 -- Name: hospital hospital_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -666,7 +645,7 @@ ALTER TABLE ONLY public.hospital
 
 
 --
--- TOC entry 4926 (class 2606 OID 17066)
+-- TOC entry 4758 (class 2606 OID 17719)
 -- Name: hospitalization_info hospitalization_info_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -675,7 +654,7 @@ ALTER TABLE ONLY public.hospitalization_info
 
 
 --
--- TOC entry 4924 (class 2606 OID 17044)
+-- TOC entry 4756 (class 2606 OID 17701)
 -- Name: sick_leave_info sick_leave_info_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -684,7 +663,16 @@ ALTER TABLE ONLY public.sick_leave_info
 
 
 --
--- TOC entry 4927 (class 2606 OID 17028)
+-- TOC entry 4759 (class 2606 OID 17669)
+-- Name: analysis analysis_ekp_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.analysis
+    ADD CONSTRAINT analysis_ekp_id_fkey FOREIGN KEY (ekp_id) REFERENCES public.ekp_info(ekp_id);
+
+
+--
+-- TOC entry 4760 (class 2606 OID 17689)
 -- Name: doctor_visit_info doctor_visit_info_diagnosis_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -693,7 +681,7 @@ ALTER TABLE ONLY public.doctor_visit_info
 
 
 --
--- TOC entry 4928 (class 2606 OID 17023)
+-- TOC entry 4761 (class 2606 OID 17684)
 -- Name: doctor_visit_info doctor_visit_info_ekp_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -702,7 +690,7 @@ ALTER TABLE ONLY public.doctor_visit_info
 
 
 --
--- TOC entry 4931 (class 2606 OID 17077)
+-- TOC entry 4764 (class 2606 OID 17730)
 -- Name: hospitalization_info hospitalization_info_diagnosis_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -711,7 +699,7 @@ ALTER TABLE ONLY public.hospitalization_info
 
 
 --
--- TOC entry 4932 (class 2606 OID 17067)
+-- TOC entry 4765 (class 2606 OID 17720)
 -- Name: hospitalization_info hospitalization_info_ekp_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -720,7 +708,7 @@ ALTER TABLE ONLY public.hospitalization_info
 
 
 --
--- TOC entry 4933 (class 2606 OID 17072)
+-- TOC entry 4766 (class 2606 OID 17725)
 -- Name: hospitalization_info hospitalization_info_hospital_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -729,7 +717,7 @@ ALTER TABLE ONLY public.hospitalization_info
 
 
 --
--- TOC entry 4929 (class 2606 OID 17050)
+-- TOC entry 4762 (class 2606 OID 17707)
 -- Name: sick_leave_info sick_leave_info_diagnosis_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -738,7 +726,7 @@ ALTER TABLE ONLY public.sick_leave_info
 
 
 --
--- TOC entry 4930 (class 2606 OID 17045)
+-- TOC entry 4763 (class 2606 OID 17702)
 -- Name: sick_leave_info sick_leave_info_ekp_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -746,11 +734,9 @@ ALTER TABLE ONLY public.sick_leave_info
     ADD CONSTRAINT sick_leave_info_ekp_id_fkey FOREIGN KEY (ekp_id) REFERENCES public.ekp_info(ekp_id);
 
 
--- Completed on 2026-03-24 19:23:58
+-- Completed on 2026-04-08 19:27:12
 
 --
 -- PostgreSQL database dump complete
 --
-
-\unrestrict QGHrCUNYbgPdWBjupbbivYL0Ydvf3Dif1vm2ehR5u2vvz9VyaR7KVGIrkKToawG
 
